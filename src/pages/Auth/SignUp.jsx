@@ -12,16 +12,14 @@ const SignUp = () => {
   });
 
   console.log(user, "ysdgygsd");
-  
-  const handleSubmit = () => {
-    
-  }
+
+  const handleSubmit = () => {};
 
   return (
     <div className="min-h-screen ">
       <div className="flex h-screen">
         {/* Left Side */}
-        <div className="flex-1 bg-purple-20 p-20 text-white ">
+        <div className=" bg-purple-20 p-20 text-white hidden md:flex md:flex-1 ">
           <div className="flex items-center justify-center flex-col ">
             <img
               src={pics}
@@ -46,12 +44,12 @@ const SignUp = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex-1 bg-white py-20 px-24">
+        <div className="flex-1 bg-white py-10 px-10 lg:py-20 md:px-20">
           <div className="mt-10">
-            <div className="text-5xl font-bold mb-8 text-purple-20">
+            <div className=" whitespace-nowraptext-5xl font-bold mb-8 text-purple-20">
               Create Account
             </div>
-            <form className="" onSubmit={handleSubmit}>
+            <form className="w-5/6 md:w-full" onSubmit={handleSubmit}>
               <div className=" md:flex items-center gap-5">
                 <div className="mb-4">
                   <label

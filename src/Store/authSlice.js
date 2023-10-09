@@ -9,12 +9,14 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const initialState = {
-  currentUser: localStorage.getItem("currentUser"),
+  currentUser: localStorage.getItem("currentUser")
+    ? JSON.parse(localStorage.getItem("currentUser"))
+    : {},
   registerStatus: "",
   registerError: "",
   loginStatus: "",
   loginError: "",
-  userLoaded: false,
+  userLoaded: localStorage.getItem("currentUser") ? true : false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -66,11 +68,7 @@ const authSlice = createSlice({
       }
     });
     builder.addCase(registerUser.rejected, (state, action) => {
-      if (typeof action.payload === "string") {
-        toast.error(action.payload);
-      } else {
-        // Handle the case where the message is not a string
-      }
+      toast.error(action?.payload);
       return { ...state, registerStatus: "pending" };
     });
   },
