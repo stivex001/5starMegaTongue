@@ -49,16 +49,9 @@ const SignUp = () => {
   });
 
   const SubmitHandler = (data) => {
-    // dispatch(
-    //   registerUser({
-    //     firstname,
-    //     lastname,
-    //     email,
-    //     password,
-    //     confirmPassword,
-    //   })
-    // );
-    console.log(data);
+    dispatch(
+      registerUser(data)
+    );
   };
 
   const password = watch("password", "");

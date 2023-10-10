@@ -3,8 +3,8 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const currentUser = true;
-  if (!currentUser) {
+  const user = true;
+  if (!user) {
     return <Navigate to="/" />;
   }
   return <div>{children}</div>;

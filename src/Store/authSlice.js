@@ -7,8 +7,6 @@ import { apiBaseUrl } from "./apiBaseUrl";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 const userData = {
   name: "",
@@ -18,14 +16,14 @@ const userData = {
 };
 
 const initialState = {
-  currentUser: localStorage.getItem("currentUser")
-    ? JSON.parse(localStorage.getItem("currentUser"))
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
     : {},
   registerStatus: "",
   registerError: "",
   loginStatus: "",
   loginError: "",
-  userLoaded: localStorage.getItem("currentUser") ? true : false,
+  userLoaded: localStorage.getItem("user") ? true : false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -40,7 +38,7 @@ export const registerUser = createAsyncThunk(
       });
       console.log(res?.data?.success);
 
-      localStorage.setItem("currentUser", res?.data);
+      localStorage.setItem("user", res?.data);
       return res?.data;
     } catch (error) {
       console.log(error.response?.data?.message);
@@ -53,7 +51,21 @@ export const registerUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logOutUser(state, action) {
+      localStorage.removeItem("user");
+      return {
+        ...state,
+        user: {},
+        registerStatus: "",
+        registerError: "",
+        loginStatus: "",
+        loginError: "",
+        userLoaded: false,
+      };
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state, action) => {
       Swal.fire({
@@ -88,6 +100,5 @@ const authSlice = createSlice({
   },
 });
 
-export const auth = (state) => state.auth;
-
-export default authSlice.reducer;
+export const { LogOutUser } = authSlice.actions;
+export default authSlice;
