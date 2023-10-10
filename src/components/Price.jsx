@@ -14,9 +14,9 @@ const Price = () => {
       </div>
       {/* Card */}
       <div className="flex items-center gap-6">
-        <PriceCard desc="Free" price={0} />
-        <PriceCard desc="Silver" price={24} />
-        <PriceCard desc="Gold" price={48} />
+        <PriceCard desc="Free" price={0} btn="Monthly billing" />
+        <PriceCard desc="Silver" price={24} btn="Monthly billing" />
+        <PriceCard desc="Gold" price={48} btn="Monthly billing" />
       </div>
     </div>
   );

@@ -97,7 +97,7 @@ const Navbar = () => {
                               Home
                             </Link>
                             <Link
-                              to="/"
+                              to="/upgrade"
                               className=" text-base font-normal hover:text-purple-20 transition"
                               onClick={() => setShowMenuList(false)}
                             >
@@ -234,7 +234,7 @@ const Navbar = () => {
                           Home
                         </Link>
                         <Link
-                          to="/"
+                          to="/upgrade"
                           className=" text-base font-normal hover:text-purple-20 transition"
                           onClick={() => setShowMenuList(false)}
                         >

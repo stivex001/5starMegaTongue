@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import CustomButton from "../utils/CustomButton";
 
-const PriceCard = ({ desc, price }) => {
+const PriceCard = ({ desc, price, btn }) => {
   return (
     <div className="bg-white shadow-lg h-[728px] rounded-xl">
       <div className="px-6 py-10 ">
@@ -382,7 +382,7 @@ const PriceCard = ({ desc, price }) => {
           </div>
           <div>
             <CustomButton className="flex justify-center">
-              Monthly billing
+              {btn}
             </CustomButton>
           </div>
         </div>
