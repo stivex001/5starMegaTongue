@@ -48,6 +48,24 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(`${apiBaseUrl}/login`, {
+        email,
+        password,
+      });
+
+      localStorage.setItem("user", res?.data);
+
+      return res?.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -95,7 +113,44 @@ const authSlice = createSlice({
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       toast.error(action?.payload);
-      return { ...state, registerStatus: "pending" };
+      return { ...state, registerStatus: "rejected" };
+    });
+
+    // login user
+    builder.addCase(loginUser.pending, (state, action) => {
+      return {
+        ...state,
+        loginStatus: "pending",
+      };
+    });
+
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      const { data, status, message } = action.payload;
+      if (status) {
+        toast("Aulthentication successfull");
+        localStorage.setItem("user", JSON.stringify(data));
+        window.location.replace("/");
+        return {
+          ...state,
+          user: data,
+          loginStatus: "success",
+        };
+      } else {
+        toast.error(message);
+        return {
+          ...state,
+          loginStatus: "failed",
+          loginError: message,
+        };
+      }
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      toast.error(action?.payload);
+      return {
+        ...state,
+        loginStatus: "rejected",
+        loginError: action.payload,
+      };
     });
   },
 });

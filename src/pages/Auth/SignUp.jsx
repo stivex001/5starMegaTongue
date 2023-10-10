@@ -17,6 +17,8 @@ const SignUp = () => {
   const [isNumberValid, setNumberValid] = useState(false);
   const [isPasswordValid, setPasswordValid] = useState(false);
 
+  const { registerError, regiterStatus } = useSelector((state) => state.auth);
+
   console.log(auth);
 
   const schema = Yup.object().shape({
@@ -49,9 +51,7 @@ const SignUp = () => {
   });
 
   const SubmitHandler = (data) => {
-    dispatch(
-      registerUser(data)
-    );
+    dispatch(registerUser(data));
   };
 
   const password = watch("password", "");
@@ -105,6 +105,7 @@ const SignUp = () => {
             <div className=" whitespace-nowraptext-5xl font-bold mb-8 text-purple-20">
               Create Account
             </div>
+            {regiterStatus === "rejected" ? <p>{registerError}</p> : null}
             <form
               className="w-5/6 md:w-full"
               onSubmit={handleSubmit(SubmitHandler)}
@@ -355,7 +356,7 @@ const SignUp = () => {
                   type="submit"
                   className="w-full bg-bg-btn text-white py-2 px-4 rounded-md hover:bg-blue-600"
                 >
-                  Sign Up
+                  {regiterStatus === "pending" ? "Registering" : "Register"}
                 </button>
               </div>
             </form>

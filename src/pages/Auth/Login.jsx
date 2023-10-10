@@ -1,7 +1,29 @@
 import { Link } from "react-router-dom";
 import pics from "../../assets/Group 1.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { loginUser } from "../../Store/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const { loginError, loginStatus } = useSelector((state) => state.auth);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const SubmitHandler = ({ email, password }) => {
+    dispatch(
+      loginUser({
+        email,
+        password,
+      })
+    );
+  };
+
   return (
     <div className="min-h-screen ">
       <div className="flex h-screen">
@@ -33,10 +55,15 @@ const Login = () => {
         {/* Right Side */}
         <div className="flex-1 bg-white py-20 px-24">
           <div className="mt-10">
+            {loginStatus === "rejected" && (
+              <p className="text-red-500 text-lg text-center">
+                {errors.message || loginError}
+              </p>
+            )}
             <div className="text-5xl font-bold mb-8 text-purple-20">
               Sign In
             </div>
-            <form className="w-5/6">
+            <form className="w-5/6" onSubmit={handleSubmit(SubmitHandler)}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -51,6 +78,7 @@ const Login = () => {
                     name="email"
                     placeholder="johndoe@gmail.com"
                     className="focus:outline-none"
+                    {...register("email")}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -80,8 +108,8 @@ const Login = () => {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="John"
                     className="focus:outline-none"
+                    {...register("password")}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +133,7 @@ const Login = () => {
                   type="submit"
                   className="w-full bg-bg-btn text-white py-2 px-4 rounded-md hover:bg-blue-600"
                 >
-                  Sign In
+                  {loginStatus === true ? "Authenticating" : "Sign In"}
                 </button>
               </div>
             </form>
