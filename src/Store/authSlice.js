@@ -7,6 +7,15 @@ import { apiBaseUrl } from "./apiBaseUrl";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+const userData = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const initialState = {
   currentUser: localStorage.getItem("currentUser")
@@ -21,9 +30,14 @@ const initialState = {
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (UserData, { rejectWithValue }) => {
+  async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${apiBaseUrl}/register`, UserData);
+      const res = await axios.post(`${apiBaseUrl}/register`, {
+        firstname,
+        lastname,
+        email,
+        password,
+      });
       console.log(res?.data?.success);
 
       localStorage.setItem("currentUser", res?.data);

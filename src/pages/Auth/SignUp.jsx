@@ -1,19 +1,71 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import pics from "../../assets/Group 1.png";
-import { useState } from "react";
+// import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../Store/authSlice";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const SignUp = () => {
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  // const formOptions = {
+  //   resolver: yupResolver(schema),
+  // };
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   // formState: { errors },
+  // } = useForm(formOptions);
+
+  console.log(auth);
+
+  const schema = Yup.object().shape({
+    firstname: Yup.string().required("First name is required"),
+    lastname: Yup.string().required("Last name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character"
+      ),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Passwords must match"
+    ),
   });
 
-  console.log(user, "ysdgygsd");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields },
+    watch,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = () => {};
+  const SubmitHandler = (data) => {
+    // dispatch(
+    //   registerUser({
+    //     firstname,
+    //     lastname,
+    //     email,
+    //     password,
+    //     confirmPassword,
+    //   })
+    // );
+    console.log(data);
+  };
+
+  const password = watch("password", "");
 
   return (
     <div className="min-h-screen ">
@@ -49,7 +101,10 @@ const SignUp = () => {
             <div className=" whitespace-nowraptext-5xl font-bold mb-8 text-purple-20">
               Create Account
             </div>
-            <form className="w-5/6 md:w-full" onSubmit={handleSubmit}>
+            <form
+              className="w-5/6 md:w-full"
+              onSubmit={handleSubmit(SubmitHandler)}
+            >
               <div className=" md:flex items-center gap-5">
                 <div className="mb-4">
                   <label
@@ -65,9 +120,7 @@ const SignUp = () => {
                       name="firstname"
                       placeholder="John"
                       className="focus:outline-none"
-                      onChange={(e) =>
-                        setUser({ ...user, firstname: e.target.value })
-                      }
+                      {...register("firstname")}
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -84,6 +137,11 @@ const SignUp = () => {
                       />
                     </svg>
                   </div>
+                  {errors && (
+                    <p className="text-red-500 text-sm text-start">
+                      {errors.firstname?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-4">
                   <label
@@ -99,9 +157,7 @@ const SignUp = () => {
                       name="lastname"
                       placeholder="Doe"
                       className="focus:outline-none"
-                      onChange={(e) =>
-                        setUser({ ...user, lastname: e.target.value })
-                      }
+                      {...register("lastname")}
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -118,6 +174,11 @@ const SignUp = () => {
                       />
                     </svg>
                   </div>
+                  {errors && (
+                    <p className="text-red-500 text-sm text-start">
+                      {errors.lastname?.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -135,9 +196,7 @@ const SignUp = () => {
                     name="email"
                     placeholder="johndoe@gmail.com"
                     className="focus:outline-none"
-                    onChange={(e) =>
-                      setUser({ ...user, email: e.target.value })
-                    }
+                    {...register("email")}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +212,11 @@ const SignUp = () => {
                     />
                   </svg>
                 </div>
+                {errors && (
+                  <p className="text-red-500 text-sm text-start">
+                    {errors.email?.message}
+                  </p>
+                )}
               </div>
 
               <div className=" md:flex items-center gap-5">
@@ -170,9 +234,7 @@ const SignUp = () => {
                       name="password"
                       placeholder="John"
                       className="focus:outline-none"
-                      onChange={(e) =>
-                        setUser({ ...user, password: e.target.value })
-                      }
+                      {...register("password")}
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -189,6 +251,11 @@ const SignUp = () => {
                       />
                     </svg>
                   </div>
+                  {errors && (
+                    <p className="text-red-500 text-sm text-start">
+                      {errors.password?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-4">
                   <label
@@ -204,9 +271,7 @@ const SignUp = () => {
                       name="confirmPassword"
                       placeholder="Doe"
                       className="focus:outline-none"
-                      onChange={(e) =>
-                        setUser({ ...user, confirmPassword: e.target.value })
-                      }
+                      {...register("confirmPassword")}
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -223,10 +288,13 @@ const SignUp = () => {
                       />
                     </svg>
                   </div>
+                  {errors && (
+                    <p className="text-red-500 text-sm text-start">
+                      {errors.confirmPassword?.message}
+                    </p>
+                  )}
                 </div>
               </div>
-
-              {/* Similar fields for Last Name, Email, Password, and Confirm Password */}
 
               {/* Checkboxes */}
               <div className="mb-8">
@@ -234,28 +302,48 @@ const SignUp = () => {
                 <label className="flex items-center space-x-2 gap-3">
                   <input
                     type="checkbox"
-                    className="form-checkbox text-purple-20 text-sm font-normal"
+                    className={`form-checkbox text-purple-20 text-sm font-normal ${
+                      password.match(/[A-Z]/)
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                    disabled
                   />
                   Contains at least one uppercase letter
                 </label>
                 <label className="flex items-center space-x-2 gap-3">
                   <input
                     type="checkbox"
-                    className="form-checkbox text-purple-20 text-sm font-normal"
+                    className={`form-checkbox text-purple-20 text-sm font-normal ${
+                      password.match(/[^A-Za-z0-9]/)
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                    disabled
                   />
                   Contains at least one special character
                 </label>
                 <label className="flex items-center space-x-2 gap-3">
                   <input
                     type="checkbox"
-                    className="form-checkbox text-purple-20 text-sm font-normal"
+                    className={`form-checkbox text-purple-20 text-sm font-normal ${
+                      password.match(/[0-9]/)
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                    disabled
                   />
                   Contains at least one number
                 </label>
                 <label className="flex items-center space-x-2 gap-3">
                   <input
                     type="checkbox"
-                    className="form-checkbox text-purple-20 text-sm font-normal"
+                    className={`form-checkbox text-purple-20 text-sm font-normal ${
+                      dirtyFields.confirmPassword === false
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                    disabled
                   />
                   Passwords are matching
                 </label>
