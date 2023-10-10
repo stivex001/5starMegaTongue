@@ -111,7 +111,7 @@ const Navbar = () => {
                               Subscription Plan
                             </Link>
                             <Link
-                              to="/"
+                              to="/profile"
                               className=" text-base font-normal hover:text-purple-20 transition"
                               onClick={() => setShowMenuList(false)}
                             >
@@ -255,7 +255,7 @@ const Navbar = () => {
                           Account{" "}
                         </Link>
                         <Link
-                          to="/"
+                          to="/profile"
                           className=" text-base font-normal hover:text-purple-20 transition"
                           onClick={() => setShowMenuList(false)}
                         >

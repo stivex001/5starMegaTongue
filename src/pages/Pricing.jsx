@@ -6,7 +6,7 @@ import CustomButton from "../utils/CustomButton";
 
 const Pricing = () => {
   return (
-    <div className=" pt-32">
+    <div className="pt-32">
       <div className="flex flex-col gap-7 mx-auto ">
         <div className="flex items-center mx-auto w-5/6  md:h-full md:pb-0 gap-6">
           <div className="flex items-center gap-3">
