@@ -27,7 +27,7 @@ const Pricing = () => {
           bill="$0.00"
         />
         <div className=" h-[1px] bg-slate-700 accent-gray-800 mt-9 mx-auto w-5/6  md:pb-0" />
-        <div className="mx-auto w-5/6 mt-[84px]">
+        <div className="mx-auto w-[70%] mt-[84px]">
           <Price />
         </div>
       </div>
