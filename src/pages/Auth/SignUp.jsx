@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import axios from "axios";
+import { apiBaseUrl } from "../../Store/apiBaseUrl";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -50,8 +52,19 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const SubmitHandler = (data) => {
+  const SubmitHandler = async(data) => {
     dispatch(registerUser(data));
+    // try {
+    //   const res = await axios.post(`${apiBaseUrl}/register`, {
+    //     ...data,
+    //   });
+    //   console.log(res?.data?.success);
+
+    //   localStorage.setItem("user", res?.data);
+    //   return res?.data;
+    // } catch (error) {
+    //   console.log(error.response)
+    // }
   };
 
   const password = watch("password", "");

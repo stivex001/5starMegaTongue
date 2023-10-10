@@ -2,8 +2,6 @@ import Price from "../components/Price";
 import SubscriptionInfo from "../components/SubscriptionInfo";
 import CustomButton from "../utils/CustomButton";
 
-// type Props = {}
-
 const Pricing = () => {
   return (
     <div className="pt-32">

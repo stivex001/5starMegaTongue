@@ -7,6 +7,7 @@ import { apiBaseUrl } from "./apiBaseUrl";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import instance from "./axios";
 
 const userData = {
   name: "",
@@ -30,7 +31,7 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${apiBaseUrl}/register`, {
+      const res = await instance.post(`${apiBaseUrl}/register`, {
         firstname,
         lastname,
         email,
@@ -52,7 +53,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${apiBaseUrl}/login`, {
+      const res = await instance.post(`${apiBaseUrl}/login`, {
         email,
         password,
       });

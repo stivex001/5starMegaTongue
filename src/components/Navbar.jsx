@@ -118,7 +118,7 @@ const Navbar = () => {
                               Account{" "}
                             </Link>
                             <Link
-                              to="/"
+                              to="/payment"
                               className=" text-base font-normal hover:text-purple-20 transition"
                               onClick={() => setShowMenuList(false)}
                             >
@@ -248,14 +248,14 @@ const Navbar = () => {
                           Subscription Plan
                         </Link>
                         <Link
-                          to="/"
+                          to="/profile"
                           className=" text-base font-normal hover:text-purple-20 transition"
                           onClick={() => setShowMenuList(false)}
                         >
                           Account{" "}
                         </Link>
                         <Link
-                          to="/profile"
+                          to="/payment"
                           className=" text-base font-normal hover:text-purple-20 transition"
                           onClick={() => setShowMenuList(false)}
                         >
