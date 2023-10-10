@@ -7,19 +7,15 @@ import { registerUser } from "../../Store/authSlice";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-
-  // const formOptions = {
-  //   resolver: yupResolver(schema),
-  // };
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   // formState: { errors },
-  // } = useForm(formOptions);
+  const [isUppercaseValid, setUppercaseValid] = useState(false);
+  const [isSpecialCharValid, setSpecialCharValid] = useState(false);
+  const [isNumberValid, setNumberValid] = useState(false);
+  const [isPasswordValid, setPasswordValid] = useState(false);
 
   console.log(auth);
 
@@ -66,6 +62,21 @@ const SignUp = () => {
   };
 
   const password = watch("password", "");
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    // Check if the password meets the uppercase letter and special character requirements
+    const isUppercaseValid = /[A-Z]/.test(newPassword);
+    const isNumberValid = /[0-9]/.test(newPassword);
+    const isSpecialCharValid = /[^A-Za-z0-9]/.test(newPassword);
+
+    const doPasswordsMatch = newPassword === register.confirmPassword;
+    // Update the state variables
+    setUppercaseValid(isUppercaseValid);
+    setSpecialCharValid(isSpecialCharValid);
+    setNumberValid(isNumberValid);
+    setPasswordValid(doPasswordsMatch);
+  };
 
   return (
     <div className="min-h-screen ">
@@ -235,6 +246,7 @@ const SignUp = () => {
                       placeholder="John"
                       className="focus:outline-none"
                       {...register("password")}
+                      onChange={handlePasswordChange}
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -303,10 +315,9 @@ const SignUp = () => {
                   <input
                     type="checkbox"
                     className={`form-checkbox text-purple-20 text-sm font-normal ${
-                      password.match(/[A-Z]/)
-                        ? "text-green-500"
-                        : "text-red-500"
+                      isUppercaseValid ? "text-green-500" : "text-red-500"
                     }`}
+                    checked={isUppercaseValid}
                     disabled
                   />
                   Contains at least one uppercase letter
@@ -315,10 +326,9 @@ const SignUp = () => {
                   <input
                     type="checkbox"
                     className={`form-checkbox text-purple-20 text-sm font-normal ${
-                      password.match(/[^A-Za-z0-9]/)
-                        ? "text-green-500"
-                        : "text-red-500"
+                      isSpecialCharValid ? "text-green-500" : "text-red-500"
                     }`}
+                    checked={isSpecialCharValid}
                     disabled
                   />
                   Contains at least one special character
@@ -327,10 +337,9 @@ const SignUp = () => {
                   <input
                     type="checkbox"
                     className={`form-checkbox text-purple-20 text-sm font-normal ${
-                      password.match(/[0-9]/)
-                        ? "text-green-500"
-                        : "text-red-500"
+                      isNumberValid ? "text-green-500" : "text-red-500"
                     }`}
+                    checked={isNumberValid}
                     disabled
                   />
                   Contains at least one number
@@ -339,10 +348,9 @@ const SignUp = () => {
                   <input
                     type="checkbox"
                     className={`form-checkbox text-purple-20 text-sm font-normal ${
-                      dirtyFields.confirmPassword === false
-                        ? "text-green-500"
-                        : "text-red-500"
+                      isPasswordValid ? "text-green-500" : "text-red-500"
                     }`}
+                    checked={isPasswordValid}
                     disabled
                   />
                   Passwords are matching
