@@ -70,7 +70,7 @@ const Navbar = () => {
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
                   <div className="relative">
-                    {!user ? (
+                    {user ? (
                       <CustomButton
                         className="bg-light-gray text-purple-20 w-fit"
                         onClick={handleShowList}
