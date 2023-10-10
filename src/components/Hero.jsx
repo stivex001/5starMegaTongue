@@ -7,9 +7,9 @@ const Hero = () => {
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
 
-  const auth = useSelector((state) => state.auth);
+  const {user} = useSelector((state) => state.auth);
 
-  console.log(auth, "auth");
+  console.log(user, "auth");
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -38,22 +38,24 @@ const Hero = () => {
     <section className={` mx-auto w-5/6 py-32 md:h-full md:pb-0`}>
       <div className="flex flex-col gap-2">
         <div className="flex  gap-16">
-          <div>
+          <div className="cursor-pointer">
             <p className="text-center text-xl font-medium">Translate Text</p>
             <span className="text-center text-sm font-normal">
               31 languages
             </span>
           </div>
-          <div>
+          <div className="cursor-pointer">
             <p className="text-purple-20 text-center text-xl font-medium">
               Translate files
             </p>
             <span className="text-center text-sm font-normal">
               .pdf, .docx, .pptx
             </span>
-            <h6 className="text-red-20 text-xs font-normal">
-              *Signup is required*
-            </h6>
+            {user.length === null && (
+              <h6 className="text-red-20 text-xs font-normal">
+                *Signup is required*
+              </h6>
+            )}
           </div>
         </div>
 

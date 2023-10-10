@@ -133,7 +133,7 @@ const Login = () => {
                   type="submit"
                   className="w-full bg-bg-btn text-white py-2 px-4 rounded-md hover:bg-blue-600"
                 >
-                  {loginStatus === true ? "Authenticating" : "Sign In"}
+                  {loginStatus === "pending" ? "Authenticating" : "Sign In"}
                 </button>
               </div>
             </form>

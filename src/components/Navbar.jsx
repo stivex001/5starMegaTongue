@@ -1,11 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 // import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "../utils/CustomButton";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const flexBetween = "flex items-center justify-between";
@@ -13,6 +14,10 @@ const Navbar = () => {
 
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [showMenuList, setShowMenuList] = useState(false);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
 
   const handleShowList = () => {
     setShowMenuList(!showMenuList);
@@ -56,20 +61,30 @@ const Navbar = () => {
             {/* Right Side */}
             {isAboveMediaScreen ? (
               <div className={`${flexBetween} w-full`}>
-                <div className={`${flexBetween} gap-8 text-xl font-normal`}>
+                <div
+                  className={`${flexBetween} gap-8 text-xl font-normal md:ml-60`}
+                >
                   <Link to="/pricing">Pricing</Link>
                   <Link to="#">API Documentation</Link>
                   {/* <Link to="#">Pricing</Link> */}
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
                   <div className="relative">
-                    <CustomButton
-                      className="bg-light-gray text-purple-20 w-fit"
-                      onClick={handleShowList}
-                    >
-                      Signup
-                    </CustomButton>
-
+                    {!user ? (
+                      <CustomButton
+                        className="bg-light-gray text-purple-20 w-fit"
+                        onClick={handleShowList}
+                      >
+                        {user?.firstname}
+                      </CustomButton>
+                    ) : (
+                      <CustomButton
+                        className="bg-light-gray text-purple-20 w-fit"
+                        onClick={() => navigate("/register")}
+                      >
+                        Signup
+                      </CustomButton>
+                    )}
                     {showMenuList && (
                       <div className="absolute w-[172px] bg-white shadow-md">
                         <div className="py-3 px-2">
@@ -191,12 +206,21 @@ const Navbar = () => {
             <div className={`flex flex-col gap-8 text-xl font-normal `}>
               <div></div>
               <div className="relative">
-                <CustomButton
-                  className="bg-light-gray text-purple-20 w-fit"
-                  onClick={handleShowList}
-                >
-                  Signup
-                </CustomButton>
+                {user ? (
+                  <CustomButton
+                    className="bg-light-gray text-purple-20 w-fit"
+                    onClick={handleShowList}
+                  >
+                    {user?.firstname}
+                  </CustomButton>
+                ) : (
+                  <CustomButton
+                    className="bg-light-gray text-purple-20 w-fit"
+                    onClick={() => navigate("/register")}
+                  >
+                    Signup
+                  </CustomButton>
+                )}
 
                 {showMenuList && (
                   <div className="absolute w-[172px] bg-white shadow-md">
