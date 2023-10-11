@@ -12,6 +12,7 @@ import ApisUsage from "./pages/ApisUsage";
 import Profile from "./pages/User/Profile";
 import Payment from "./pages/Payment";
 import Upgrade from "./pages/Upgrade";
+import FAQ from "./pages/FAQ";
 
 function App() {
   const router = createBrowserRouter([
@@ -50,6 +51,10 @@ function App() {
         {
           path: "/upgrade",
           element: <Upgrade />,
+        },
+        {
+          path: "/faq",
+          element: <FAQ />,
         },
       ],
     },
