@@ -17,7 +17,8 @@ const FaqItem = ({ question, answer }) => {
         <p className="text-xl font-medium">{question}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`w-6 h-6 ${isOpen ? "transform rotate-180" : ""}`}
+          className={`w-6 h-6 ${isOpen ? "transform rotate-360" : ""}`}
+
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -30,7 +31,13 @@ const FaqItem = ({ question, answer }) => {
           />
         </svg>
       </div>
-      {isOpen && <p className="text-gray-600 mt-2">{answer}</p>}
+      <p
+        className={`text-gray-600 mt-2 transition-max-h transition-opacity ${
+          isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        {answer}
+      </p>
     </div>
   );
 };
