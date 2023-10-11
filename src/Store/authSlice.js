@@ -31,7 +31,7 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     try {
-      const res = await instance.post(`${apiBaseUrl}/register`, {
+      const res = await axios.post(`${apiBaseUrl}/register`, {
         firstname,
         lastname,
         email,
@@ -42,7 +42,7 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem("user", res?.data);
       return res?.data;
     } catch (error) {
-      console.log(error.response?.data?.message);
+      console.log(error);
 
       return rejectWithValue(error.response?.data?.message);
     }
