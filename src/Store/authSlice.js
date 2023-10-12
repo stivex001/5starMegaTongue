@@ -31,12 +31,21 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${apiBaseUrl}/register`, {
-        firstname,
-        lastname,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${apiBaseUrl}/register`,
+        {
+          firstname,
+          lastname,
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
       console.log(res?.data?.success);
 
       localStorage.setItem("user", res?.data);
@@ -53,7 +62,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const res = await instance.post(`${apiBaseUrl}/login`, {
+      const res = await axios.post(`${apiBaseUrl}/login/`, {
         email,
         password,
       });

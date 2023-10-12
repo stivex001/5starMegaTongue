@@ -25,19 +25,19 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen ">
-      <div className="flex h-screen">
+    <div className="min-h-screen overflow-x-hidden">
+      <div className="sm:flex h-screen">
         {/* Left Side */}
-        <div className="flex-1 bg-purple-20 p-20 text-white ">
+        <div className="sm:flex-1 bg-purple-20 p-20 text-white  ">
           <div className="flex items-center justify-center flex-col ">
             <img
               src={pics}
               alt="Welcome Back Image"
-              className="w-[377px] h-[318px] object-cover"
+              className=" sm:w-[377px] sm:h-[318px] object-cover"
             />
             <div className="my-8 flex flex-col items-center gap-3">
-              <p className="text-3xl font-semibold">Welcome Back</p>
-              <span className="text-[18px] font-normal">
+              <p className="text-2xl whitespace-nowrap sm:text-3xl font-semibold">Welcome Back</p>
+              <span className="text-base text-center sm:text-[18px] font-normal">
                 Just a couple of clicks and we start
               </span>
             </div>
@@ -53,17 +53,17 @@ const Login = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex-1 bg-white py-20 px-24">
+        <div className="w-full sm:flex-1 bg-white py-3 px-5 sm:py-20 sm:px-24">
           <div className="mt-10">
             {loginStatus === "rejected" && (
               <p className="text-red-500 text-lg text-center">
                 {errors.message || loginError}
               </p>
             )}
-            <div className="text-5xl font-bold mb-8 text-purple-20">
+            <div className="text-center sm:text-left text-3xl sm:text-5xl font-bold mb-8 text-purple-20">
               Sign In
             </div>
-            <form className="w-5/6" onSubmit={handleSubmit(SubmitHandler)}>
+            <form className="w-full sm:w-5/6" onSubmit={handleSubmit(SubmitHandler)}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -128,7 +128,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="mb-4 mt-14">
+              <div className="mb-5 mt-10">
                 <button
                   type="submit"
                   className="w-full bg-bg-btn text-white py-2 px-4 rounded-md hover:bg-blue-600"
@@ -138,7 +138,7 @@ const Login = () => {
               </div>
             </form>
 
-            <p className="text-[rgba(49, 46, 129, 0.80)] text-center text-[18px] font-normal">
+            <p className="text-[rgba(49, 46, 129, 0.80)] text-center text-[18px] font-normal mb-5">
               Don’t have an account?{" "}
               <Link
                 to="/register"

@@ -1,4 +1,4 @@
-export const apiBaseUrl = "https://megatongue.prisca.5starcompany.com.ng/api"
+export const apiBaseUrl = "https://megatongue.prisca.5starcompany.com.ng/api";
 
 // export const apiBaseUrl = "https://datahubsapi.prisca.5starcompany.com.ng/api"
 
