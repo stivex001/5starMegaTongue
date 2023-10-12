@@ -85,19 +85,19 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen ">
-      <div className="flex h-screen">
+    <div className="min-h-screen overflow-x-hidden ">
+      <div className="sm:flex h-screen">
         {/* Left Side */}
-        <div className=" bg-purple-20 p-20 text-white hidden md:flex md:flex-1 ">
+        <div className=" sm:flex-1 bg-purple-20 p-20 text-white ">
           <div className="flex items-center justify-center flex-col ">
             <img
               src={pics}
               alt="Welcome Back Image"
-              className="w-[377px] h-[318px] object-cover"
+              className="sm:w-[377px] sm:h-[318px] object-cover"
             />
             <div className="my-8 flex flex-col items-center gap-3">
-              <p className="text-3xl font-semibold">Welcome Aboard</p>
-              <span className="text-[18px] font-normal">
+              <p className="text-2xl whitespace-nowrap sm:text-3xl font-semibold">Welcome Aboard</p>
+              <span className="text-base text-center sm:text-[18px] font-normal">
                 Just a couple of clicks and we start
               </span>
             </div>
@@ -113,14 +113,14 @@ const SignUp = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex-1 bg-white py-10 px-10 lg:py-20 md:px-20">
+        <div className="w-full sm:flex-1 bg-white py-3 px-5 sm:py-20 sm:px-24">
           <div className="mt-10">
-            <div className=" whitespace-nowraptext-5xl font-bold mb-8 text-purple-20">
+            <div className="text-center whitespace-nowrap text-3xl sm:text-5xl font-bold mb-8 text-purple-20">
               Create Account
             </div>
             {regiterStatus === "rejected" ? <p>{registerError}</p> : null}
             <form
-              className="w-5/6 md:w-full"
+              className="w-full sm:w-5/6"
               onSubmit={handleSubmit(SubmitHandler)}
             >
               <div className=" md:flex items-center gap-5">
@@ -250,7 +250,7 @@ const SignUp = () => {
                       type="password"
                       id="password"
                       name="password"
-                      placeholder="John"
+                      // placeholder="John"
                       className="focus:outline-none"
                       {...register("password")}
                       onChange={handlePasswordChange}
@@ -288,7 +288,7 @@ const SignUp = () => {
                       type="password"
                       id="confirmPassword"
                       name="confirmPassword"
-                      placeholder="Doe"
+                      // placeholder="Doe"
                       className="focus:outline-none"
                       {...register("confirmPassword")}
                     />
