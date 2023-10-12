@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import Price from "../components/Price";
 import SubscriptionInfo from "../components/SubscriptionInfo";
 import CustomButton from "../utils/CustomButton";
 
 const Pricing = () => {
+  const navigate = useNavigate();
   return (
     <div className="pt-32">
       <div className="flex flex-col gap-7 mx-auto ">
@@ -13,7 +15,12 @@ const Pricing = () => {
             </h3>
             <p className="text-3xl font-bold text-center">FREE PLAN</p>
           </div>
-          <CustomButton className="w-fit py-[14px] px-8">Upgrade</CustomButton>
+          <CustomButton
+            className="w-fit py-[14px] px-8"
+            onClick={() => navigate("/upgrade")}
+          >
+            Upgrade
+          </CustomButton>
         </div>
         <SubscriptionInfo
           title="Subscription:"

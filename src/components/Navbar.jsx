@@ -6,7 +6,9 @@ import CustomButton from "../utils/CustomButton";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutUser } from "../Store/authSlice";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const flexBetween = "flex items-center justify-between";
@@ -17,7 +19,9 @@ const Navbar = () => {
 
   const { user } = useSelector((state) => state.auth);
 
+  console.log(user.user, "gusgu");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleShowList = () => {
     setShowMenuList(!showMenuList);
@@ -41,6 +45,12 @@ const Navbar = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [menuRef]);
+
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    setShowMenuList(false);
+    toast.warning("Logged Out Successfully", { position: "bottom-left" });
+  };
 
   return (
     <nav>
@@ -70,19 +80,19 @@ const Navbar = () => {
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
                   <div className="relative">
-                    {user ? (
+                    {user?.user ? (
                       <CustomButton
                         className="bg-light-gray text-purple-20 w-fit"
                         onClick={handleShowList}
                       >
-                        {user?.firstname}
+                        {user?.user?.firstname}
                       </CustomButton>
                     ) : (
                       <CustomButton
                         className="bg-light-gray text-purple-20 w-fit"
-                        onClick={() => navigate("/register")}
+                        onClick={() => navigate("/login")}
                       >
-                        Signup
+                        Login
                       </CustomButton>
                     )}
                     {showMenuList && (
@@ -131,12 +141,12 @@ const Navbar = () => {
                             >
                               API Usage{" "}
                             </Link>
-                            <Link
-                              to="/"
-                              className=" text-base font-normal hover:text-purple-20 transition"
+                            <p
+                              onClick={handleLogout}
+                              className=" text-base font-normal hover:text-purple-20 transition cursor-pointer"
                             >
                               Signout{" "}
-                            </Link>
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -216,9 +226,9 @@ const Navbar = () => {
                 ) : (
                   <CustomButton
                     className="bg-light-gray text-purple-20 w-fit"
-                    onClick={() => navigate("/register")}
+                    onClick={() => navigate("/login")}
                   >
-                    Signup
+                    Login
                   </CustomButton>
                 )}
 
@@ -268,12 +278,12 @@ const Navbar = () => {
                         >
                           API Usage{" "}
                         </Link>
-                        <Link
-                          to="/"
-                          className=" text-base font-normal hover:text-purple-20 transition"
+                        <p
+                          onClick={handleLogout}
+                          className=" text-base font-normal hover:text-purple-20 transition cursor-pointer"
                         >
                           Signout{" "}
-                        </Link>
+                        </p>
                       </div>
                     </div>
                   </div>
