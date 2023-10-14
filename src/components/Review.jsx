@@ -22,15 +22,15 @@ const Review = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="w-5/6 mx-auto my-6 ">
-        <div className={`${flexBetween}`}>
+      <div className="sm:w-5/6 sm:mx-auto my-6 ">
+        <div className={`sm:${flexBetween}`}>
           <div>
             <span className="text-purple-20 text-sm font-medium">
               What customers say
             </span>
-            <p className="text-dark-20 text-4xl font-bold">Recent Reviews</p>
+            <p className="text-dark-20 text-4xl font-bold py-5 sm:py-0">Recent Reviews</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-4">
             <div
               className="flex items-center justify-center py-3 px-6 bg-[rgba(18, 17, 39, 0.04)] rounded-[100px] cursor-pointer"
               onClick={scrollLeft}
@@ -46,7 +46,7 @@ const Review = () => {
           </div>
         </div>
         <div
-          className="flex items-center gap-6 mt-[41px] overflow-hidden card-container"
+          className="flex flex-wrap items-center gap-6 sm:mt-[41px] overflow-hidden card-container"
           style={{
             overflowX: "scroll",
             scrollbarWidth: "none",

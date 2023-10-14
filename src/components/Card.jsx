@@ -2,13 +2,13 @@
 const Card = () => {
   return (
     <div className="bg-white shadow-lg py-8 px-6 ">
-      <div className="flex flex-col gap-8 w-[356px]">
+      <div className="flex flex-col gap-8 sm:w-[356px]">
         <p className="text-lg font-normal text-gray-400 max-w-[408px]">
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
           sint velit officia consequat duis enim velit mollit exercitation
           veniam.
         </p>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between">
           <div className="flex items-center gap-3">
             <img
               src="https://avatars.githubusercontent.com/u/87942124?v=4"
