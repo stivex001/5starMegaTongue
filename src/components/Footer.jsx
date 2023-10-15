@@ -5,7 +5,7 @@ const Footer = () => {
   const flexBetween = "flex items-center justify-between";
   return (
     <footer className="py-16 mt-40">
-      <div className="justify-content mx-auto w-5/6 gap-16 sm:flex">
+      <div className="mx-auto w-5/6 gap-16 sm:flex">
         <div className="mt-16 basis-1/2 sm:mt-0">
           <h4 className="  text-[#e1e1e4] tex-xl font-bold">Solutions</h4>
           <p className="my-5 font-normal text-sm text-dark-20">Marketing</p>
@@ -41,7 +41,7 @@ const Footer = () => {
           <p className="my-5 font-normal text-sm text-dark-20 max-w-xs">
             The latest news, articles, and resources, sent to your inbox weekly
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <input
               type="email"
               placeholder="Enter your email"
