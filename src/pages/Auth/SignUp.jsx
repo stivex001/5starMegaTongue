@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pics from "../../assets/Group 1.png";
 // import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { registerUser } from "../../Store/authSlice";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiBaseUrl } from "../../Store/apiBaseUrl";
 
@@ -19,9 +19,16 @@ const SignUp = () => {
   const [isNumberValid, setNumberValid] = useState(false);
   const [isPasswordValid, setPasswordValid] = useState(false);
 
-  const { registerError, regiterStatus } = useSelector((state) => state.auth);
+  const { user,registerError, regiterStatus } = useSelector((state) => state.auth);
 
   console.log(auth);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   const schema = Yup.object().shape({
     firstname: Yup.string().required("First name is required"),
@@ -52,19 +59,8 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const SubmitHandler = async(data) => {
+  const SubmitHandler = async (data) => {
     dispatch(registerUser(data));
-    // try {
-    //   const res = await axios.post(`${apiBaseUrl}/register`, {
-    //     ...data,
-    //   });
-    //   console.log(res?.data?.success);
-
-    //   localStorage.setItem("user", res?.data);
-    //   return res?.data;
-    // } catch (error) {
-    //   console.log(error.response)
-    // }
   };
 
   const password = watch("password", "");
@@ -96,7 +92,9 @@ const SignUp = () => {
               className="sm:w-[377px] sm:h-[318px] object-cover"
             />
             <div className="my-8 flex flex-col items-center gap-3">
-              <p className="text-2xl whitespace-nowrap sm:text-3xl font-semibold">Welcome Aboard</p>
+              <p className="text-2xl whitespace-nowrap sm:text-3xl font-semibold">
+                Welcome Aboard
+              </p>
               <span className="text-base text-center sm:text-[18px] font-normal">
                 Just a couple of clicks and we start
               </span>

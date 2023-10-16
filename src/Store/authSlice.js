@@ -7,19 +7,10 @@ import { apiBaseUrl } from "./apiBaseUrl";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import instance from "./axios";
 
-const userData = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
 
 const initialState = {
-  user: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : {},
+  user: null,
   registerStatus: "",
   registerError: "",
   loginStatus: "",
@@ -84,7 +75,7 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       return {
         ...state,
-        user: {},
+        user: null,
         registerStatus: "",
         registerError: "",
         loginStatus: "",
@@ -104,8 +95,9 @@ const authSlice = createSlice({
       return { ...state, registerStatus: "pending" };
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      const { status, message } = action.payload;
-      if (status) {
+      const { statuscode, message } = action.payload;
+      console.log("Registration status:", action.payload);
+      if (statuscode === 200 || message === "Registration Sucessfull") {
         toast(message);
         window.location.replace("/login");
         return {
@@ -136,6 +128,7 @@ const authSlice = createSlice({
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
       const { data, status, message } = action.payload;
+      console.log("login status:", action.payload);
       if (status) {
         toast("Aulthentication successfull");
         localStorage.setItem("user", JSON.stringify(data));

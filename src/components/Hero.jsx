@@ -51,7 +51,7 @@ const Hero = () => {
             <span className="text-center text-sm font-normal">
               .pdf, .docx, .pptx
             </span>
-            {!user.user && (
+            {!user?.user && (
               <h6 className="text-red-20 text-xs font-normal">
                 *Authentication is required*
               </h6>

@@ -1,22 +1,29 @@
 /* eslint-disable react/prop-types */
-
-import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const location = useLocation();
+  const { user } = useSelector((state) => state.auth);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  if (!user?.user) {
-    return (
-      <Navigate
-        to="/login"
-        state={{
-          from: location,
-        }}
-        replace
-      />
-    );
+  console.log(user);
+
+  // Function to check if a token is expired using the 'expires_at' field
+  function isTokenExpired(tokenData) {
+    if (!tokenData || !tokenData.expires_at) return true;
+
+    // Parse the 'expires_at' timestamp into a Date object
+    const expirationTime = new Date(tokenData.expires_at);
+
+    // Compare the expiration time with the current time
+    const currentTime = new Date();
+
+    return currentTime >= expirationTime;
   }
+
+  if (!user || isTokenExpired(user?.data)) {
+    return <Navigate to="/login" />;
+  }
+
   return <div>{children}</div>;
 };
 
