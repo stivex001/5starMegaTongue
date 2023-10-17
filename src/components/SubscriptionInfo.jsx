@@ -70,12 +70,19 @@ const SubscriptionInfo = ({
               </span>
             </span>
           </div>
-          <div className="flex items-center gap-9">
-            <p className="text-dark-20 font-bold text-xl w-[137px]">
-              {company}{" "}
-            </p>
-            <span className="text-dark-20 text-xl font-light">{comName} </span>
-          </div>
+          {comName && (
+            <div className="flex items-center gap-9">
+              <p className="text-dark-20 font-bold text-xl w-[137px]">
+                {company}{" "}
+              </p>
+              {
+                <span className="text-dark-20 text-xl font-light">
+                  {comName}{" "}
+                </span>
+              }
+            </div>
+          )}
+
           <div className="flex items-center gap-9">
             <p className="text-dark-20 font-bold text-xl w-[137px]">
               {notification}{" "}

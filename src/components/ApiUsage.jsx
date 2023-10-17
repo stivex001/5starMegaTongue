@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-const ApiUsage = () => {
+const ApiUsage = ({apiUsage}) => {
   return (
     <section className={` mx-auto w-5/6  md:h-full md:pb-0 border `}>
       <div className="py-7 px-8">
@@ -28,7 +29,7 @@ const ApiUsage = () => {
           <div className="py-10">
             <h1 className="text-3xl font-semibold ">Statistics</h1>
             <span className="text-xl font-normal italic">
-              You have not made any API Requests in the last month.
+              {apiUsage?.message}
             </span>
           </div>
         </div>
