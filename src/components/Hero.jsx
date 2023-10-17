@@ -1,13 +1,14 @@
 /* eslint-disable react/no-unknown-property */
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const Hero = () => {
   const flexBetween = "flex items-center justify-between";
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
 
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userData = user?.data?.user
+ 
 
   console.log(user, "auth");
 
@@ -51,7 +52,7 @@ const Hero = () => {
             <span className="text-center text-sm font-normal">
               .pdf, .docx, .pptx
             </span>
-            {!user?.user && (
+            {!userData && (
               <h6 className="text-red-20 text-xs font-normal">
                 *Authentication is required*
               </h6>

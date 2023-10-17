@@ -11,8 +11,8 @@ import { toast } from "react-toastify";
 
 const initialState = {
   user: localStorage.getItem("user")
-  ? localStorage.getItem("user")
-  : {},
+    ? JSON.parse(localStorage.getItem("user"))
+    : {},
   registerStatus: "",
   registerError: "",
   loginStatus: "",

@@ -6,7 +6,7 @@ import CustomButton from "../utils/CustomButton";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logOutUser } from "../Store/authSlice";
 import { toast } from "react-toastify";
 
@@ -17,9 +17,12 @@ const Navbar = () => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [showMenuList, setShowMenuList] = useState(false);
 
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userData = user?.data?.user
+ 
 
-  console.log(user, "gusgu");
+
+  console.log(user?.data?.user, "gusgu");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -80,12 +83,12 @@ const Navbar = () => {
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
                   <div className="relative">
-                    {user?.user ? (
+                    {userData? (
                       <CustomButton
                         className="bg-light-gray text-purple-20 w-fit"
                         onClick={handleShowList}
                       >
-                        {user?.user?.firstname}
+                        {userData?.firstname}
                       </CustomButton>
                     ) : (
                       <CustomButton
@@ -216,12 +219,12 @@ const Navbar = () => {
             <div className={`flex flex-col gap-8 text-xl font-normal `}>
               <div></div>
               <div className="relative">
-                {user ? (
+                {userData ? (
                   <CustomButton
                     className="bg-light-gray text-purple-20 w-fit"
                     onClick={handleShowList}
                   >
-                    {user?.firstname}
+                    {userData?.firstname}
                   </CustomButton>
                 ) : (
                   <CustomButton

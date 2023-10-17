@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log(user);
+  console.log(user?.data);
 
   // Function to check if a token is expired using the 'expires_at' field
   function isTokenExpired(tokenData) {
@@ -20,14 +20,14 @@ const ProtectedRoute = ({ children }) => {
     return currentTime >= expirationTime;
   }
 
-  if (!user || isTokenExpired(user?.data)) {
+  if (!user?.data || isTokenExpired(user?.data)) {
     return (
       <Navigate
-        to="/"
-        state={{
-          from: location,
-        }}
-        replace
+        to="/login"
+        // state={{
+        //   from: location,
+        // }}
+        // replace
       />
     );
   }
