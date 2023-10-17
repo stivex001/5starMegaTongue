@@ -1,8 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link } from "react-router-dom";
 import FaqItem from "../components/FaqItems";
 import PriceCard from "../components/PriceCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Upgrade = () => {
+  const [faq, setFaq] = useState([]);
+  const [loading, setIsLoading] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.data?.access_token;
+
+  const getFaq = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getfaq`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data?.message);
+      setFaq(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getFaq();
+  }, []);
+
   return (
     <div className="pt-32 mx-auto w-[70%]">
       <div className="flex items-center gap-6 ">
@@ -23,15 +59,9 @@ const Upgrade = () => {
         <h1 className="font-bold text-4xl text-center mb-12">
           Frequently asked questions
         </h1>
-        <FaqItem
-          question="How can I upgrade my plan?"
-          answer="To upgrade your plan, click on the 'Upgrade' button for the plan you want to switch to, and follow the instructions provided."
-        />
-        <FaqItem
-          question="Can I cancel my subscription?"
-          answer="Yes, you can cancel your subscription at any time. Visit your account settings to manage your subscription."
-        />
-        {/* Add more FAQ items as needed */}
+        <FaqItem question={faq?.[0]?.question} answer={faq?.[0]?.answer} />
+        <FaqItem question={faq?.[1]?.question} answer={faq?.[1]?.answer} />
+
         <div className="mt-12 text-purple-20 text-xl font-medium">
           <Link to="/faq">See all Frequently Asked Questions »</Link>
         </div>

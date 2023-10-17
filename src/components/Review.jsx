@@ -28,7 +28,9 @@ const Review = () => {
             <span className="text-purple-20 text-sm font-medium">
               What customers say
             </span>
-            <p className="text-dark-20 text-4xl font-bold py-5 sm:py-0">Recent Reviews</p>
+            <p className="text-dark-20 text-4xl font-bold py-5 sm:py-0">
+              Recent Reviews
+            </p>
           </div>
           <div className="hidden sm:flex items-center gap-4">
             <div
@@ -46,7 +48,7 @@ const Review = () => {
           </div>
         </div>
         <div
-          className="flex flex-wrap items-center gap-6 sm:mt-[41px] overflow-hidden card-container"
+          className="flex items-center gap-6 sm:mt-[41px] overflow-hidden card-container"
           style={{
             overflowX: "scroll",
             scrollbarWidth: "none",
