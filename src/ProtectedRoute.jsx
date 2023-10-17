@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   console.log(user);
 
@@ -21,7 +21,15 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!user || isTokenExpired(user?.data)) {
-    return <Navigate to="/login" />;
+    return (
+      <Navigate
+        to="/"
+        state={{
+          from: location,
+        }}
+        replace
+      />
+    );
   }
 
   return <div>{children}</div>;

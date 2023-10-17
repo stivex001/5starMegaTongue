@@ -10,13 +10,20 @@ import { toast } from "react-toastify";
 
 
 const initialState = {
-  user: null,
+  user: localStorage.getItem("user")
+  ? localStorage.getItem("user")
+  : {},
   registerStatus: "",
   registerError: "",
   loginStatus: "",
   loginError: "",
   userLoaded: localStorage.getItem("user") ? true : false,
 };
+
+const storedUser = localStorage.getItem("user");
+if (storedUser) {
+  initialState.user = storedUser;
+}
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -58,8 +65,7 @@ export const loginUser = createAsyncThunk(
         password,
       });
 
-      localStorage.setItem("user", res?.data);
-
+      console.log(res.data);
       return res?.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message);
@@ -127,15 +133,15 @@ const authSlice = createSlice({
     });
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      const { data, status, message } = action.payload;
-      console.log("login status:", action.payload);
+      const { user, status, message } = action.payload;
+      console.log("login status:", user);
       if (status) {
         toast("Aulthentication successfull");
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(action.payload));
         window.location.replace("/");
         return {
           ...state,
-          user: data,
+          user: action.payload,
           loginStatus: "success",
         };
       } else {

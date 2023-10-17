@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user?.user, "gusgu");
+  console.log(user, "gusgu");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
