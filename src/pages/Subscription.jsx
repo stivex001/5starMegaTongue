@@ -1,17 +1,54 @@
 // import React from 'react'
-
+import { useEffect, useState } from "react";
 import ApiAccessKey from "../components/ApiAccessKey";
 import ApiUsage from "../components/ApiUsage";
 import Hero from "../components/Hero";
 import SubscriptionInfo from "../components/SubscriptionInfo";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-// type Props = {}
 
 const Subscription = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.data?.access_token
+  const [apikey, setApiKey] = useState();
+  const [loading, setIsLoading] = useState(false);
+ 
+
+  console.log(user, "auth");
+
+  const getApiKey = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getapikey`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response,"apikey")
+      setApiKey(response);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getApiKey();
+  }, []);
+
+  console.log(apikey,"gsdggd")
+
   return (
     <div className="flex flex-col gap-7">
       <Hero />
-      <ApiAccessKey />
+      <ApiAccessKey apiKey={user?.data?.user?.api_key}/>
       <ApiUsage />
       <SubscriptionInfo
         title="Subscription:"
