@@ -7,8 +7,7 @@ const Hero = () => {
   const [file, setFile] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const userData = user?.data?.user
- 
+  const userData = user?.data?.user;
 
   console.log(user, "auth");
 
@@ -99,12 +98,11 @@ const Hero = () => {
               </div>
 
               <div className=" border-r-2 flex flex-col gap-5 py-4">
-                <input
-                  type="text"
+                <textarea
                   placeholder="Type to translate"
                   value={text}
                   onChange={handleTextChange}
-                  className="text-xl text-[rgba(0, 0, 0, 0.49)] font-normal border border-transparent rounded-lg p-2 focus:outline-none focus:ring-2 max-w-xs"
+                  className="text-xl text-[rgba(0, 0, 0, 0.49)] font-normal border border-transparent rounded-lg p-2 focus:outline-none"
                 />
                 <div
                   className="drop-zone "
