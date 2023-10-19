@@ -11,7 +11,7 @@ const ApiAccessKey = ({ apiKey,createNewApiKey,loading, user }) => {
           <h1 className="text-3xl font-semibold">Your API Access Key:</h1>
           <div className="flex items-center justify-between py-2 px-4 border border-slate-600 bg-[#e9edf4]">
             {apiKey ? (
-              <p className="text-3xl font-semibold italic">{apiKey || userApiKey}</p>
+              <p className="text-3xl font-semibold italic">{userApiKey}</p>
             ) : (
               <p></p>
             )}
