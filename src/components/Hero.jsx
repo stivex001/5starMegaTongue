@@ -299,7 +299,7 @@ const Hero = () => {
                   type="text"
                   value={outputText}
                   readOnly
-                  className="text-xl text-[rgba(0, 0, 0, 0.49)] font-normal border border-transparent rounded-lg p-2 focus:outline-none  max-w-xs"
+                  className="text-xl text-[rgba(0, 0, 0, 0.49)] font-normal border border-transparent rounded-lg p-2 focus:outline-none"
                 />
               </div>
             </div>
