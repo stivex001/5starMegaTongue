@@ -26,6 +26,10 @@ const Hero = () => {
     { code: "fr", name: "French" },
     { code: "en", name: "English" },
     { code: "es", name: "Spanish" },
+    { code: "de", name: "German" },
+    { code: "rs", name: "Russian" },
+    { code: "hu", name: "Hausa" },
+    { code: "yor", name: "Yoruba" },
   ];
 
   const selectedLanguageName = languages?.find(
@@ -58,16 +62,20 @@ const Hero = () => {
     setText(e.target.value);
   };
 
-  //   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     const selectedFile = e.target.files && e.target.files[0];
-  //     if (selectedFile) {
-  //       setFile(selectedFile);
-  //     }
-  //   };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files && e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+
+      handleFileTranslate();
+    }
+  };
+
+  console.log(file?.name);
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const selectedFile = e.dataTransfer.files && e.dataTransfer.files[0];
+    const selectedFile = e.dataTransfer.files && e.dataTransfer.files[0]?.name;
     if (selectedFile) {
       setFile(selectedFile);
     }
@@ -89,6 +97,30 @@ const Hero = () => {
           target: selectedOutputLanguage,
           format: "text",
         },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            apikey: apiKey,
+          },
+        }
+      );
+      console.log(response.data.message);
+      setOutputText(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+      setIsLoading(false);
+    }
+  };
+
+  const handleFileTranslate = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/translatefile`,
+        { csvfile: file },
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -205,26 +237,24 @@ const Hero = () => {
                   onDrop={handleDrop}
                   onDragOver={preventDefault}
                 >
-                  <p className="text-light-gray font-normal text-center text-base max-w-lg">
+                  <label
+                    htmlFor="file-input"
+                    className="text-light-gray font-normal text-center text-base max-w-lg cursor-pointer"
+                  >
                     Drag and drop to translate PDF, Word (.docx), and PowerPoint
                     (.pptx) files with our document translator
-                  </p>
+                  </label>
+
+                  <input
+                    type="file"
+                    accept=".pdf, .docx, .pptx"
+                    id="file-input"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
                 </div>
                 {file && <p>Selected File: {file.name}</p>}
               </div>
-
-              {/* <input
-              type="file"
-              accept=".pdf, .docx, .pptx"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-            <input
-              type="file"
-              accept=".pdf, .docx, .pptx"
-              onChange={handleFileChange}
-            /> */}
-              {/* <p>Selected File: {file && file.name}</p> */}
             </div>
 
             <div className="flex flex-col gap-4 flex-1 px-4">
