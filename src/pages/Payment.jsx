@@ -1,5 +1,46 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import Spinner from "../components/spinner/Spinner";
+
 /* eslint-disable react/no-unescaped-entities */
 const Payment = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.data?.access_token;
+  const [subPlan, setSubPlan] = useState("");
+  const [loading, setIsLoading] = useState(false);
+
+  const getSubscriptionPlan = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      setSubPlan(response?.data);
+      toast.info(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSubscriptionPlan();
+  }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <section className="pt-32">
       <div className={` mx-auto w-5/6  md:h-full md:pb-0 border  py-7 px-8`}>
@@ -12,7 +53,7 @@ const Payment = () => {
           </div>
 
           <span className="text-[18px] text-gray-400 font-normal italic">
-            You currently have no payment methods on file.
+            {subPlan?.message}
           </span>
 
           <div className="w-full h-[1px] bg-slate-700 accent-gray-800 mt-20" />
