@@ -1,10 +1,47 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate } from "react-router-dom";
 import Price from "../components/Price";
 import SubscriptionInfo from "../components/SubscriptionInfo";
 import CustomButton from "../utils/CustomButton";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.data?.access_token;
+  const [subPlan, setSubPlan] = useState("");
+  const [loading, setIsLoading] = useState(false);
+
+  const getSubscriptionPlan = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      setSubPlan(response?.data);
+      toast.info(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSubscriptionPlan();
+  }, []);
+
   return (
     <div className="pt-32">
       <div className="flex flex-col gap-7 mx-auto ">
