@@ -7,6 +7,7 @@ import CustomButton from "../utils/CustomButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Spinner from "../components/spinner/Spinner";
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -41,6 +42,10 @@ const Pricing = () => {
   useEffect(() => {
     getSubscriptionPlan();
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="pt-32">
