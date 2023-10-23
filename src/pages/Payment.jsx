@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../components/spinner/Spinner";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/no-unescaped-entities */
 const Payment = () => {
@@ -41,15 +42,17 @@ const Payment = () => {
   if (loading) {
     return <Spinner />;
   }
+
+
   return (
     <section className="pt-32">
       <div className={` mx-auto w-5/6  md:h-full md:pb-0 border  py-7 px-8`}>
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-semibold">Your payment method(s):</h1>
-            <p className="text-purple-20 text-xl font-semibold cursor-pointer">
+            <Link to='/pricing' className="text-purple-20 text-xl font-semibold cursor-pointer">
               Add new
-            </p>
+            </Link>
           </div>
 
           <span className="text-[18px] text-gray-400 font-normal italic">
