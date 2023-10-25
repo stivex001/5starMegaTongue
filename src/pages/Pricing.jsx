@@ -14,6 +14,7 @@ const Pricing = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user?.data?.access_token;
   const [subPlan, setSubPlan] = useState("");
+  const [plan, setPlan] = useState([]);
   const [loading, setIsLoading] = useState(false);
 
   const getSubscriptionPlan = async () => {
@@ -39,8 +40,33 @@ const Pricing = () => {
     }
   };
 
+  const getPlans = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getplans`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.message);
+      setPlan(response?.data?.message);
+      toast.info(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+
   useEffect(() => {
     getSubscriptionPlan();
+    getPlans()
   }, []);
 
   if (loading) {
@@ -77,7 +103,7 @@ const Pricing = () => {
         />
         <div className=" h-[1px] bg-slate-700 accent-gray-800 mt-9 mx-auto w-5/6  md:pb-0" />
         <div className="mx-auto w-[70%] mt-[84px]">
-          <Price />
+          <Price plan={plan} />
         </div>
       </div>
     </div>

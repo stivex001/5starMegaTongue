@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import PriceCard from "./PriceCard";
 
-const Price = () => {
+const Price = ({plan}) => {
+  console.log(plan);
   return (
     <div className="flex flex-col gap-[64px]">
       <div className="flex flex-col gap-4">
@@ -14,9 +16,9 @@ const Price = () => {
       </div>
       {/* Card */}
       <div className="flex items-center gap-6">
-        <PriceCard desc="Free" price={0} btn="Monthly billing" />
-        <PriceCard desc="Silver" price={24} btn="Monthly billing" />
-        <PriceCard desc="Gold" price={48} btn="Monthly billing" />
+        <PriceCard desc={plan[0]?.plan_name} price={0} btn="Monthly billing" />
+        <PriceCard desc={plan[1]?.plan_name} price={24} btn="Monthly billing" />
+        <PriceCard desc={plan[2]?.plan_name} price={48} btn="Monthly billing" />
       </div>
     </div>
   );
