@@ -30,7 +30,7 @@ const Pricing = () => {
           },
         }
       );
-      console.log(response.data);
+      console.log(response?.data);
       setSubPlan(response?.data);
       toast.info(response?.data?.message);
       setIsLoading(false);
@@ -63,15 +63,16 @@ const Pricing = () => {
     }
   };
 
-
   useEffect(() => {
     getSubscriptionPlan();
-    getPlans()
+    getPlans();
   }, []);
 
   if (loading) {
     return <Spinner />;
   }
+
+  console.log(subPlan["subscription plan"]);
 
   return (
     <div className="pt-32">
@@ -81,7 +82,9 @@ const Pricing = () => {
             <h3 className="text-3xl font-medium text-center">
               Your Subscription:
             </h3>
-            <p className="text-3xl font-bold text-center">FREE PLAN</p>
+            <p className="text-3xl font-bold text-center">
+              {subPlan["subscription plan"]?.toUpperCase()} PLAN
+            </p>
           </div>
           <CustomButton
             className="w-fit py-[14px] px-8"
@@ -92,14 +95,14 @@ const Pricing = () => {
         </div>
         <SubscriptionInfo
           title="Subscription:"
-          desc="Free Plan"
+          desc={subPlan["subscription plan"] + " " + "plan"}
           api="Renew:"
-          apiDesc="2023-09-01"
+          apiDesc={subPlan?.Renew}
           apii="API Usage"
-          apDesc="0% (0 / 1,000)"
+          apDesc={`(${subPlan["Api usage"]} / 1,000)`}
           apUsages="API Usage"
           billing="Billing Period:"
-          bill="$0.00"
+          bill={`${subPlan["Billing period"]?.start} - ${subPlan["Billing period"]?.end}`}
         />
         <div className=" h-[1px] bg-slate-700 accent-gray-800 mt-9 mx-auto w-5/6  md:pb-0" />
         <div className="mx-auto w-[70%] mt-[84px]">
