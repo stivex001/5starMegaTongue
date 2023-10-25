@@ -90,8 +90,31 @@ const Subscription = () => {
     }
   };
 
+  const getUserInfo = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getuserinfo`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     getApiUsage();
+    getUserInfo();
   }, []);
 
   return (

@@ -2,25 +2,25 @@
 /* eslint-disable react/no-unknown-property */
 import CustomButton from "../utils/CustomButton";
 
-const PriceCard = ({ desc, price, btn }) => {
+const PriceCard = ({ desc, price, btn, title }) => {
   return (
     <div className="bg-white shadow-lg h-[728px] rounded-xl">
       <div className="px-6 py-10 ">
         <div className="flex flex-col ">
           <div className="flex flex-col gap-4 h-[564px]">
-            <p className="text-xl font-bold text-purple-20">{desc}</p>
+            <p className="text-xl font-bold text-purple-20">{title}</p>
             <div className="flex items-center gap-2">
-              <p className="text-dark-20 text-[44px] font-bold">${price}</p>
+              <p className="text-dark-20 text-[44px] font-bold">₦{price}</p>
               <span className="text-base font-bold text-gray-400 pt-4">
                 /month
               </span>
             </div>
             <span className="text-base font-normal text-gray-400 max-w-[312px]">
-              The essensitals to provide your best work for clients.
+              {desc}
             </span>
             <div className="flex flex-col gap-3 pt-4">
               {/* Free */}
-              {desc === "Free" && (
+              {title === "FREE" && (
                 <>
                   <div className="flex items-center gap-3">
                     <svg
@@ -102,7 +102,7 @@ const PriceCard = ({ desc, price, btn }) => {
               )}
 
               {/* Silver */}
-              {desc === "Silver" && (
+              {title === "SILVER" && (
                 <>
                   <div className="flex items-center gap-3">
                     <svg
@@ -222,7 +222,7 @@ const PriceCard = ({ desc, price, btn }) => {
               )}
 
               {/* Gold */}
-              {desc === "Gold" && (
+              {title === "GOLD" && (
                 <>
                   <div className="flex items-center gap-3">
                     <svg
@@ -381,9 +381,7 @@ const PriceCard = ({ desc, price, btn }) => {
             </div>
           </div>
           <div>
-            <CustomButton className="flex justify-center">
-              {btn}
-            </CustomButton>
+            <CustomButton className="flex justify-center">{btn}</CustomButton>
           </div>
         </div>
       </div>

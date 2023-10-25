@@ -6,10 +6,12 @@ import PriceCard from "../components/PriceCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Spinner from "../components/spinner/Spinner";
 
 const Upgrade = () => {
   const [faq, setFaq] = useState([]);
   const [loading, setIsLoading] = useState(false);
+  const [plan, setPlan] = useState([]);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user?.data?.access_token;
@@ -36,17 +38,61 @@ const Upgrade = () => {
     }
   };
 
+  const getPlans = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getplans`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.message);
+      setPlan(response?.data?.message);
+      toast.info(response?.data?.message);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     getFaq();
+    getPlans();
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="pt-32 mx-auto w-[70%]">
-      <div className="flex items-center gap-6 ">
-        <PriceCard desc="Free" price={0} btn="Renew  23-02-2024" />
-        <PriceCard desc="Silver" price={24} btn="Upgrade" />
-        <PriceCard desc="Gold" price={48} btn="Upgrade" />
+      <div className="flex items-center gap-6">
+        <PriceCard
+          title={plan[0]?.plan_name}
+          price={plan[0]?.amount}
+          btn="Renew  23-02-2024"
+          desc={plan[0]?.description}
+        />
+        <PriceCard
+          title={plan[2]?.plan_name}
+          price={plan[2]?.amount}
+          btn="Upgrade"
+          desc={plan[2]?.description}
+        />
+        <PriceCard
+          title={plan[1]?.plan_name}
+          price={plan[1]?.amount}
+          btn="Upgrade"
+          desc={plan[1]?.description}
+        />
       </div>
+
       <div className="flex items-center justify-end mt-12 gap-3">
         <p className="text-xl font-normal italic cursor-pointer">
           Need more requests?
