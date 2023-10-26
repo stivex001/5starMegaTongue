@@ -53,7 +53,6 @@ const Pricing = () => {
           },
         }
       );
-      console.log(response.data.message);
       setPlan(response?.data?.message);
       toast.info(response?.data?.message);
       setIsLoading(false);
