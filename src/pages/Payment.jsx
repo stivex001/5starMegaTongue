@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 const Payment = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user?.data?.access_token;
-  const [subPlan, setSubPlan] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [loading, setIsLoading] = useState(false);
 
-  const getSubscriptionPlan = async () => {
+  const getPaymentMethod = async () => {
     setIsLoading(true);
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getpaymentmethod`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ const Payment = () => {
         }
       );
       console.log(response.data);
-      setSubPlan(response?.data);
+      setPaymentMethod(response?.data);
       toast.info(response?.data?.message);
       setIsLoading(false);
     } catch (error) {
@@ -36,7 +36,7 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    getSubscriptionPlan();
+    getPaymentMethod();
   }, []);
 
   if (loading) {
@@ -56,7 +56,7 @@ const Payment = () => {
           </div>
 
           <span className="text-[18px] text-gray-400 font-normal italic">
-            {subPlan?.message}
+            {paymentMethod?.message}
           </span>
 
           <div className="w-full h-[1px] bg-slate-700 accent-gray-800 mt-20" />

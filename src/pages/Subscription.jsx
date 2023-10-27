@@ -8,6 +8,7 @@ import SubscriptionInfo from "../components/SubscriptionInfo";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import Spinner from "../components/spinner/Spinner";
 
 const Subscription = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -15,10 +16,12 @@ const Subscription = () => {
   const [apikey, setApiKey] = useState("");
   const [apiUsage, setApiUsage] = useState("");
   const [loading, setIsLoading] = useState(false);
+  const [subPlan, setSubPlan] = useState("");
+  const [userInfo, setUserInfo] = useState("");
 
   console.log(user, "auth");
 
-  const userData = user?.data?.user
+  const userData = user?.data?.user;
 
   const createNewApiKey = async (e) => {
     e.preventDefault();
@@ -104,7 +107,30 @@ const Subscription = () => {
         }
       );
       console.log(response.data);
-      
+      setUserInfo(response?.data)
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setIsLoading(false);
+    }
+  };
+
+  const getSubscriptionPlan = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      setSubPlan(response?.data);
+      toast.info(response?.data?.message);
       setIsLoading(false);
     } catch (error) {
       toast.error(error?.message);
@@ -115,7 +141,14 @@ const Subscription = () => {
   useEffect(() => {
     getApiUsage();
     getUserInfo();
+    getSubscriptionPlan();
   }, []);
+
+  console.log(subPlan);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="flex flex-col gap-7">
@@ -129,9 +162,9 @@ const Subscription = () => {
       <ApiUsage apiUsage={apiUsage} />
       <SubscriptionInfo
         title="Subscription:"
-        desc="Free Plan"
+        desc={subPlan["subscription plan"] + " " + "plan"}
         api="API Usage"
-        apiDesc="0% (0 / 1,000)"
+        apDesc={`(${subPlan["Api usage"]} / 1,000)`}
         apiUsages="API Usage"
       />
       <SubscriptionInfo
