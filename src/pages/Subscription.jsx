@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 // import React from 'react'
 import { useEffect, useState } from "react";
@@ -40,7 +41,6 @@ const Subscription = () => {
         }
       );
 
-      // Check if API key creation was successful
       if (createResponse?.data?.statusCode === true) {
         // If successful, make a GET request to retrieve the new API key
         const response = await axios.get(
