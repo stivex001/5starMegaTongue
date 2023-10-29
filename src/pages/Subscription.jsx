@@ -20,8 +20,6 @@ const Subscription = () => {
   const [subPlan, setSubPlan] = useState("");
   const [userInfo, setUserInfo] = useState("");
 
-  console.log(user, "auth");
-
   const userData = user?.data?.user;
 
   const createNewApiKey = async (e) => {
