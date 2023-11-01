@@ -24,11 +24,11 @@ const SignUp = () => {
   console.log(auth);
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, user]);
 
   const schema = Yup.object().shape({
     firstname: Yup.string().required("First name is required"),
@@ -349,7 +349,7 @@ const SignUp = () => {
                   />
                   Contains at least one number
                 </label>
-                <label className="flex items-center space-x-2 gap-3">
+                {/* <label className="flex items-center space-x-2 gap-3">
                   <input
                     type="checkbox"
                     className={`form-checkbox text-purple-20 text-sm font-normal ${
@@ -359,7 +359,7 @@ const SignUp = () => {
                     disabled
                   />
                   Passwords are matching
-                </label>
+                </label> */}
               </div>
 
               <div className="mb-4">
