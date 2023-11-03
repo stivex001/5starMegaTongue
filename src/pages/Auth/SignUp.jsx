@@ -19,10 +19,12 @@ const SignUp = () => {
   const [isNumberValid, setNumberValid] = useState(false);
   const [isPasswordValid, setPasswordValid] = useState(false);
 
-  const { user,registerError, regiterStatus } = useSelector((state) => state.auth);
+  const { user, registerError, regiterStatus } = useSelector(
+    (state) => state.auth
+  );
 
   console.log(auth);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (user) {
@@ -67,7 +69,6 @@ const SignUp = () => {
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
-    // Check if the password meets the uppercase letter and special character requirements
     const isUppercaseValid = /[A-Z]/.test(newPassword);
     const isNumberValid = /[0-9]/.test(newPassword);
     const isSpecialCharValid = /[^A-Za-z0-9]/.test(newPassword);
