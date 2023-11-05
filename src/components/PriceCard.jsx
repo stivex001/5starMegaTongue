@@ -3,6 +3,7 @@
 import CustomButton from "../utils/CustomButton";
 
 const PriceCard = ({ desc, price, btn, title }) => {
+  
   return (
     <div className="bg-white shadow-lg h-[728px] rounded-xl">
       <div className="px-6 py-10 ">
