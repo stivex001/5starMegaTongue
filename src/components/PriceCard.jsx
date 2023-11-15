@@ -221,7 +221,7 @@ const PriceCard = ({ desc, price, btn, title }) => {
                   </div>
                 </>
               )}
-
+              
               {/* Gold */}
               {title === "GOLD" && (
                 <>

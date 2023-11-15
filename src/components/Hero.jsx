@@ -293,7 +293,6 @@ const Hero = () => {
                   </select>
                 )}
               </div>
-              {/* <input type="text" placeholder="Type to translate" /> */}
               <div className=" border-r-2 flex flex-col gap-5 py-4">
                 <input
                   type="text"
