@@ -13,17 +13,18 @@ import { apiBaseUrl } from "../../Store/apiBaseUrl";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
   const [isUppercaseValid, setUppercaseValid] = useState(false);
   const [isSpecialCharValid, setSpecialCharValid] = useState(false);
   const [isNumberValid, setNumberValid] = useState(false);
   const [isPasswordValid, setPasswordValid] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const { user, registerError, regiterStatus } = useSelector(
     (state) => state.auth
   );
 
-  console.log(auth);
+  console.log(regiterStatus);
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -62,7 +63,9 @@ const SignUp = () => {
   });
 
   const SubmitHandler = async (data) => {
+    setLoading(true) 
     dispatch(registerUser(data));
+    setLoading(false)
   };
 
   const password = watch("password", "");

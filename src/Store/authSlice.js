@@ -93,11 +93,11 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state, action) => {
-      Swal.fire({
-        text: "Please wait...while your request is being process",
-        icon: "info",
-        allowOutsideClick: false,
-      });
+      // Swal.fire({
+      //   text: "Please wait...while your request is being process",
+      //   icon: "info",
+      //   allowOutsideClick: false,
+      // });
       return { ...state, registerStatus: "pending" };
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
