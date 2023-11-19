@@ -17,7 +17,8 @@ const Navbar = () => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [showMenuList, setShowMenuList] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
+  const user = true
   const userData = user?.data?.user
  
 

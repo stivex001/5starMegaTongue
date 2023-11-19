@@ -8,11 +8,10 @@ import { apiBaseUrl } from "./apiBaseUrl";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
+const storedUser = localStorage.getItem("user");
 
 const initialState = {
-  user: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : {},
+  user: {},
   registerStatus: "",
   registerError: "",
   loginStatus: "",
@@ -20,10 +19,7 @@ const initialState = {
   userLoaded: localStorage.getItem("user") ? true : false,
 };
 
-const storedUser = localStorage.getItem("user");
-if (storedUser) {
-  initialState.user = storedUser;
-}
+
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
