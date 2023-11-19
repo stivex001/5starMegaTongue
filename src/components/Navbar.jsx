@@ -18,10 +18,8 @@ const Navbar = () => {
   const [showMenuList, setShowMenuList] = useState(false);
 
   // const user = JSON.parse(localStorage.getItem("user"));
-  const user = true
-  const userData = user?.data?.user
- 
-
+  const user = true;
+  const userData = user?.data?.user;
 
   console.log(user?.data?.user, "gusgu");
   const navigate = useNavigate();
@@ -76,15 +74,17 @@ const Navbar = () => {
             {isAboveMediaScreen ? (
               <div className={`${flexBetween} w-full`}>
                 <div
-                  className={`${flexBetween} gap-8 text-xl font-normal md:ml-60`}
+                  className={`${flexBetween} gap-8 text-black text-xl font-normal leading-normal md:ml-60`}
                 >
-                  <Link to="/pricing">Pricing</Link>
+                  <Link to="/pricing" className="">
+                    Pricing
+                  </Link>
                   <Link to="#">API Documentation</Link>
                   {/* <Link to="#">Pricing</Link> */}
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
                   <div className="relative">
-                    {userData? (
+                    {userData ? (
                       <CustomButton
                         className="bg-light-gray text-purple-20 w-fit"
                         onClick={handleShowList}
@@ -210,105 +210,55 @@ const Navbar = () => {
 
           {/* Menu Items */}
           <div className={`ml-[20%] flex flex-col gap-10 text-2xl`}>
-            <div
-              className={`flex flex-col gap-8 text-xl font-normal text-white`}
-            >
-              <Link to="/pricing">Pricing</Link>
-              <Link to="#">API Documentation</Link>
-              {/* <Link to="#">Pricing</Link> */}
-            </div>
-            <div className={`flex flex-col gap-8 text-xl font-normal `}>
-              <div></div>
-              <div className="relative">
-                {userData ? (
-                  <CustomButton
-                    className="bg-light-gray text-purple-20 w-fit"
-                    onClick={handleShowList}
-                  >
-                    {userData?.firstname}
-                  </CustomButton>
-                ) : (
-                  <CustomButton
-                    className="bg-light-gray text-purple-20 w-fit"
-                    onClick={() => navigate("/login")}
-                  >
-                    Login
-                  </CustomButton>
-                )}
-
-                {showMenuList && (
-                  <div className="absolute w-[172px] bg-white shadow-md">
-                    <div className="py-3 px-2">
-                      <div className="flex flex-col gap-2 ">
-                        <Link
-                          to="/"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          Home
-                        </Link>
-                        <Link
-                          to="/upgrade"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          Upgrade
-                        </Link>
-                        <Link
-                          to="/subscription-plan"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          Subscription Plan
-                        </Link>
-                        <Link
-                          to="/profile"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          Account{" "}
-                        </Link>
-                        <Link
-                          to="/payment"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          Payment{" "}
-                        </Link>
-                        <Link
-                          to="/api-usage"
-                          className=" text-base font-normal hover:text-purple-20 transition"
-                          onClick={() => setShowMenuList(false)}
-                        >
-                          API Usage{" "}
-                        </Link>
-                        <p
-                          onClick={handleLogout}
-                          className=" text-base font-normal hover:text-purple-20 transition cursor-pointer"
-                        >
-                          Signout{" "}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="22"
-                viewBox="0 0 32 22"
-                fill="none"
-                className="cursor-pointer"
+            <div className="flex flex-col gap-8 text-xl font-normal text-white ">
+              <Link
+                to="/"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
               >
-                <path
-                  d="M31 1H1M31 11H1M31 21H1"
-                  stroke="#fff"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg> */}
+                Home
+              </Link>
+              <Link
+                to="/upgrade"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
+              >
+                Upgrade
+              </Link>
+              <Link
+                to="/subscription-plan"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
+              >
+                Subscription Plan
+              </Link>
+              <Link
+                to="/profile"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
+              >
+                Account{" "}
+              </Link>
+              <Link
+                to="/payment"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
+              >
+                Payment{" "}
+              </Link>
+              <Link
+                to="/api-usage"
+                className=" text-base font-normal hover:text-slate-400 transition"
+                onClick={() => setIsMenuToggled(false)}
+              >
+                API Usage{" "}
+              </Link>
+              <p
+                onClick={handleLogout}
+                className=" text-base font-normal hover:text-slate-400 transition cursor-pointer"
+              >
+                Signout{" "}
+              </p>
             </div>
           </div>
         </div>
