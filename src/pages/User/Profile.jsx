@@ -4,6 +4,7 @@ import { useState } from "react";
 import CustomButton from "../../utils/CustomButton";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { apiBaseUrl } from "../../Store/apiBaseUrl";
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -45,7 +46,7 @@ const Profile = () => {
 
     try {
       const response = await axios.post(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/updateuserinfo`,
+        `${apiBaseUrl}/updateuserinfo`,
         formData,
         {
           headers: {
