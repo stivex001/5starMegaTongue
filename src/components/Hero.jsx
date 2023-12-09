@@ -15,8 +15,8 @@ const Hero = () => {
   const [showOuputLanguageDropdown, setShowOutputLanguageDropdown] =
     useState(false);
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-  const user = true
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const userData = user?.data?.user;
   const token = user?.data?.access_token;
   const apiKey = user?.data?.user?.api_key;

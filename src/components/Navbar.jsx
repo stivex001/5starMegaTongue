@@ -17,11 +17,10 @@ const Navbar = () => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [showMenuList, setShowMenuList] = useState(false);
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-  const user = true;
+  const user = JSON.parse(localStorage.getItem("user"));
   const userData = user?.data?.user;
 
-  console.log(user?.data?.user, "gusgu");
+  console.log(user?.data, "gusgu");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
