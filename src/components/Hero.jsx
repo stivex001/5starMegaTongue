@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 const Hero = () => {
   const flexBetween = "flex items-center justify-between";
@@ -91,7 +92,7 @@ const Hero = () => {
 
     try {
       const response = await axios.post(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/translator`,
+        `${apiBaseUrl}/translator`,
         {
           q: text,
           source: selectedLanguage,
@@ -120,7 +121,7 @@ const Hero = () => {
 
     try {
       const response = await axios.post(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/translatefile`,
+        `${apiBaseUrl}/translatefile`,
         { csvfile: file },
         {
           headers: {
