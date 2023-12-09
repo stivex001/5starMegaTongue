@@ -27,11 +27,11 @@ const SignUp = () => {
   console.log(regiterStatus);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, user]);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   const schema = Yup.object().shape({
     firstname: Yup.string().required("First name is required"),

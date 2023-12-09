@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Spinner from "../components/spinner/Spinner";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 const Upgrade = () => {
   const [faq, setFaq] = useState([]);
@@ -21,7 +22,7 @@ const Upgrade = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getfaq`,
+        `${apiBaseUrl}/getfaq`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -42,15 +43,12 @@ const Upgrade = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getplans`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${apiBaseUrl}/getplans`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data.message);
       setPlan(response?.data?.message);
       toast.info(response?.data?.message);

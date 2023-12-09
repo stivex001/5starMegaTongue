@@ -6,6 +6,7 @@ import axios from "axios";
 import ApiUsage from "../components/ApiUsage";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 // type Props = {}
 
@@ -24,7 +25,7 @@ const ApisUsage = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getapiusage`,
+        `${apiBaseUrl}/getapiusage`,
         {
           headers: {
             authorization: `Bearer ${token}`,

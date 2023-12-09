@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../components/spinner/Spinner";
 import { Link } from "react-router-dom";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 /* eslint-disable react/no-unescaped-entities */
 const Payment = () => {
@@ -17,7 +18,7 @@ const Payment = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getpaymentmethod`,
+        `${apiBaseUrl}/getpaymentmethod`,
         {
           headers: {
             authorization: `Bearer ${token}`,

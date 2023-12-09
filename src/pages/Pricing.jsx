@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Spinner from "../components/spinner/Spinner";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Pricing = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        `${apiBaseUrl}/getsubscribplan`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -45,7 +46,7 @@ const Pricing = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getplans`,
+        `${apiBaseUrl}/getplans`,
         {
           headers: {
             authorization: `Bearer ${token}`,

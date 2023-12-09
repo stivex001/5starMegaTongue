@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import FaqItem from "../components/FaqItems";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 const FAQ = () => {
   const [faq, setFaq] = useState([]);
@@ -19,7 +20,7 @@ const FAQ = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getfaq`,
+        `${apiBaseUrl}/getfaq`,
         {
           headers: {
             authorization: `Bearer ${token}`,

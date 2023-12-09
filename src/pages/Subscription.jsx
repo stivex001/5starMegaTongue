@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Spinner from "../components/spinner/Spinner";
+import { apiBaseUrl } from "../Store/apiBaseUrl";
 
 const Subscription = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -29,7 +30,7 @@ const Subscription = () => {
     try {
       // Create a new API key
       const createResponse = await axios.post(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/apikey`,
+        `${apiBaseUrl}/apikey`,
         null, // No request body for POST request
         {
           headers: {
@@ -42,7 +43,7 @@ const Subscription = () => {
       if (createResponse?.data?.statusCode === true) {
         // If successful, make a GET request to retrieve the new API key
         const response = await axios.get(
-          `http://newmegatongueapi.staging.5starcompany.com.ng/api/getapikey`,
+          `${apiBaseUrl}/getapikey`,
           {
             headers: {
               authorization: `Bearer ${token}`,
@@ -74,7 +75,7 @@ const Subscription = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getapiusage`,
+        `${apiBaseUrl}/getapiusage`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -96,7 +97,7 @@ const Subscription = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getuserinfo`,
+        `${apiBaseUrl}/getuserinfo`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -118,7 +119,7 @@ const Subscription = () => {
 
     try {
       const response = await axios.get(
-        `http://newmegatongueapi.staging.5starcompany.com.ng/api/getsubscribplan`,
+        `${apiBaseUrl}/getsubscribplan`,
         {
           headers: {
             authorization: `Bearer ${token}`,
