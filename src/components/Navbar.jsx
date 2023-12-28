@@ -6,8 +6,6 @@ import CustomButton from "../utils/CustomButton";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useDispatch } from "react-redux";
-import { logOutUser } from "../Store/authSlice";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
@@ -22,7 +20,6 @@ const Navbar = () => {
 
   console.log(user?.data, "gusgu");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleShowList = () => {
     setShowMenuList(!showMenuList);
@@ -48,7 +45,7 @@ const Navbar = () => {
   }, [menuRef]);
 
   const handleLogout = () => {
-    dispatch(logOutUser());
+    localStorage.removeItem("user");
     setShowMenuList(false);
     toast.warning("Logged Out Successfully", { position: "bottom-left" });
   };
@@ -78,7 +75,7 @@ const Navbar = () => {
                   <Link to="/pricing" className="">
                     Pricing
                   </Link>
-                  <Link to="#">API Documentation</Link>
+                  {/* <Link to="#">API Documentation</Link> */}
                   {/* <Link to="#">Pricing</Link> */}
                 </div>
                 <div className={`${flexBetween} gap-8 text-xl font-normal`}>
@@ -252,12 +249,21 @@ const Navbar = () => {
               >
                 API Usage{" "}
               </Link>
-              <p
-                onClick={handleLogout}
-                className=" text-base font-normal hover:text-slate-400 transition cursor-pointer"
-              >
-                Signout{" "}
-              </p>
+              {user ? (
+                <p
+                  onClick={handleLogout}
+                  className=" text-base font-normal hover:text-slate-400 transition cursor-pointer"
+                >
+                  Signout{" "}
+                </p>
+              ) : (
+                <p
+                  className=" text-white cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </p>
+              )}
             </div>
           </div>
         </div>
