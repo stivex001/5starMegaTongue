@@ -228,14 +228,14 @@ const Hero = () => {
                     <Spinner />
                   ) : user ? (
                     <button
-                      className="hidden sm:block cursor-pointer hover:scale-105 ease-in"
+                      className="  cursor-pointer hover:scale-105 ease-in"
                       onClick={handleTranslate}
                     >
                       <TranslationIcon />
                     </button>
                   ) : (
                     <button
-                      className="hidden sm:block cursor-not-allowed opacity-50 hover:scale-105 ease-in"
+                      className=" cursor-not-allowed opacity-50 hover:scale-105 ease-in"
                       disabled={!user}
                     >
                       <TranslationIcon />
