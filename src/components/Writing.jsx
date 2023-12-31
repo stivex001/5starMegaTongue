@@ -10,7 +10,7 @@ const Writing = () => {
         </div>
         <div className="flex flex-col gap-5 bg-bg-light py-5 px-5  sm:py-[100px] sm:pl-[200px] sm:w-[1000px] ">
           <p className="text-dark-20 font-bold sm:text-4xl text-xl text-center">
-            Perfect your writing with MegaTounge
+            Perfect your writing with MegaTongue
           </p>
           <span className="text-[rgba(18, 17, 39, 0.56)] font-normal text-lg opacity-50 max-w-xl">
             Fix grammar and punctuation mistakes, rephrase sentences, express
