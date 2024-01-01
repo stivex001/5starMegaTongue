@@ -18,6 +18,7 @@ const Subscription = () => {
   const [apikey, setApiKey] = useState("");
   const [apiUsage, setApiUsage] = useState("");
   const [loading, setIsLoading] = useState(false);
+  const [apiLoading, setIsApiLoading] = useState(false);
   const [subPlan, setSubPlan] = useState("");
   const [userInfo, setUserInfo] = useState("");
 
@@ -25,7 +26,7 @@ const Subscription = () => {
 
   const createNewApiKey = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsApiLoading(true);
 
     try {
       // Create a new API key
@@ -42,31 +43,30 @@ const Subscription = () => {
 
       if (createResponse?.data?.statusCode === true) {
         // If successful, make a GET request to retrieve the new API key
-        const response = await axios.get(
-          `${apiBaseUrl}/getapikey`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
+        const response = await axios.get(`${apiBaseUrl}/getapikey`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response);
         // Update the apiKey state with the retrieved API key
-        setApiKey(response?.data?.message);
-        setIsLoading(false);
+        if (response?.data?.status === true) {
+          setApiKey(response?.data?.message);
+          setIsApiLoading(false);
+        }
       } else {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: createResponse?.data?.message,
         });
-        setIsLoading(false);
+        setIsApiLoading(false);
       }
     } catch (error) {
       // Handle any errors that occur during the API key creation process
       toast.error(error?.data?.message || error.message);
-      setIsLoading(false);
+      setIsApiLoading(false);
     }
   };
 
@@ -74,15 +74,12 @@ const Subscription = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/getapiusage`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${apiBaseUrl}/getapiusage`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data);
       setApiUsage(response?.data);
       setIsLoading(false);
@@ -96,17 +93,14 @@ const Subscription = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/getuserinfo`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${apiBaseUrl}/getuserinfo`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data);
-      setUserInfo(response?.data)
+      setUserInfo(response?.data);
       setIsLoading(false);
     } catch (error) {
       toast.error(error?.message);
@@ -118,15 +112,12 @@ const Subscription = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/getsubscribplan`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${apiBaseUrl}/getsubscribplan`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data);
       setSubPlan(response?.data);
       toast.info(response?.data?.message);
@@ -143,7 +134,7 @@ const Subscription = () => {
     getSubscriptionPlan();
   }, []);
 
-  console.log(subPlan);
+  console.log(apikey);
 
   if (loading) {
     return <Spinner />;
@@ -155,7 +146,7 @@ const Subscription = () => {
       <ApiAccessKey
         apiKey={apikey}
         createNewApiKey={createNewApiKey}
-        loading={loading}
+        loading={apiLoading}
         user={user}
       />
       <ApiUsage apiUsage={apiUsage} />
