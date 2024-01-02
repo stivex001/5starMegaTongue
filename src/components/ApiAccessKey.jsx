@@ -19,7 +19,7 @@ const ApiAccessKey = ({ apiKey, createNewApiKey, loading, user }) => {
             )}
             {apiKey ? (
               <CustomButton
-                className="w-fit h-[41px] text-2xl font-semibold flex items-center bg-dark-blue"
+                className="w-fit h-10 text-2xl font-semibold flex items-center bg-dark-blue"
                 onClick={createNewApiKey}
               >
                 {loading ? <Spinner /> : "Reset"}

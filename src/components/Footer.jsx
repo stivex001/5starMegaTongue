@@ -4,8 +4,8 @@ import CustomButton from "../utils/CustomButton";
 const Footer = () => {
   const flexBetween = "flex items-center justify-between";
   return (
-    <footer className="py-16 mt-40">
-      <div className="mx-auto w-5/6 gap-16 sm:flex">
+    <footer className="py-16 mt-40 overflow-x-hidden">
+      <div className="mx-auto w-5/6 gap-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 ">
         <div className="mt-16 basis-1/2 sm:mt-0">
           <h4 className="  text-[#e1e1e4] tex-xl font-bold">Solutions</h4>
           <p className="my-5 font-normal text-sm text-dark-20">Marketing</p>
@@ -34,14 +34,14 @@ const Footer = () => {
           <p className="my-5 font-normal text-sm text-dark-20">Privacy</p>
           <p className="my-5 font-normal text-sm text-dark-20">Terms</p>
         </div>
-        <div className="mt-16 basis-1/2 sm:mt-0">
-          <h4 className="  text-[#e1e1e4] tex-xl font-bold">
+        <div className="mt-16 md:basis-1/2 sm:mt-0">
+          <h4 className="  text-[#e1e1e4] tex-xl font-bold whitespace-nowrap">
             Subscribe to our newsletter
           </h4>
-          <p className="my-5 font-normal text-sm text-dark-20 max-w-xs">
+          <p className="my-5 font-normal text-sm text-dark-20 md:max-w-xs">
             The latest news, articles, and resources, sent to your inbox weekly
           </p>
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap mb-10 md:mb-0">
             <input
               type="email"
               placeholder="Enter your email"
