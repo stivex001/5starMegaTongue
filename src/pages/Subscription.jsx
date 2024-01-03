@@ -27,7 +27,7 @@ const Subscription = () => {
 
   const createNewApiKey = async (e) => {
     e.preventDefault();
-    setIsApiLoading(true);
+    setIsLoading(true);
 
     try {
       const createResponse = await axios.post(`${apiBaseUrl}/apikey`, null, {
@@ -49,7 +49,7 @@ const Subscription = () => {
         // Update the apiKey state with the retrieved API key
         if (response?.data?.status === true) {
           setApiKey(response?.data?.message);
-          setIsApiLoading(false);
+          setIsLoading(false);
         }
       } else {
         Swal.fire({
@@ -57,12 +57,12 @@ const Subscription = () => {
           title: "Oops...",
           text: createResponse?.data?.message,
         });
-        setIsApiLoading(false);
+        setIsLoading(false);
       }
     } catch (error) {
       // Handle any errors that occur during the API key creation process
       toast.error(error?.data?.message || error.message);
-      setIsApiLoading(false);
+      setIsLoading(false);
     }
   };
 

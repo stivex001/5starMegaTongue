@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 const user = JSON.parse(localStorage?.getItem("user"));
 const token = user?.data?.access_token;
 
-console.log(token);
 
 export const getApiKey = async () => {
   try {
