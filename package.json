@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.1",
     "@paystack/inline-js": "^2.13.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@tanstack/react-query": "^5.17.0",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",

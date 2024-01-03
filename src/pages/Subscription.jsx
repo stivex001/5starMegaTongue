@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Spinner from "../components/spinner/Spinner";
 import { apiBaseUrl } from "../Store/apiBaseUrl";
+import { useGetApikey } from "../hooks/useGetApikey";
 
 const Subscription = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -123,9 +124,7 @@ const Subscription = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("API key changed:", apikey);
-  }, [apikey]);
+  
 
   useEffect(() => {
     getApiUsage();
@@ -133,6 +132,9 @@ const Subscription = () => {
     getSubscriptionPlan();
   }, []);
 
+  const { data, isLoading, isError } = useGetApikey();
+
+  
 
   if (loading) {
     return <Spinner />;
@@ -142,7 +144,7 @@ const Subscription = () => {
     <div className="flex flex-col gap-7">
       <Hero />
       <ApiAccessKey
-        apiKey={apikey}
+        apiKey={data}
         createNewApiKey={createNewApiKey}
         loading={apiLoading}
         user={user}

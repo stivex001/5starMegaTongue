@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { apiBaseUrl } from "../Store/apiBaseUrl";
 import { Spinner } from "./Spinner";
 import { TranslationIcon } from "../icons/TranslationIcon";
+import { useGetApikey } from "../hooks/useGetApikey";
+import Swal from "sweetalert2";
 
 const Hero = () => {
   const flexBetween = "flex items-center justify-between";
@@ -23,9 +25,11 @@ const Hero = () => {
 
   const userData = user?.data?.user;
   const token = user?.data?.access_token;
-  const apiKey = user?.data?.user?.api_key;
+  // const userApikey = user?.data?.user?.api_key;
 
   console.log(userData, "auth");
+
+  const { data: apiKey } = useGetApikey();
 
   const languages = [
     { code: "fr", name: "French" },
@@ -96,6 +100,17 @@ const Hero = () => {
 
   const handleTranslate = async () => {
     setIsLoading(true);
+
+    if (!apiKey) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops!",
+        text: "You don't have an API key. Kindly click on Create an API key button",
+        footer: '<a href="/subscription-plan" class="text-white hover:bg-blue-500/70 bg-blue-500 p-3">Create an API key</a>',
+      });
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post(
