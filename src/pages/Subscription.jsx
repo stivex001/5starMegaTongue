@@ -29,17 +29,12 @@ const Subscription = () => {
     setIsApiLoading(true);
 
     try {
-      // Create a new API key
-      const createResponse = await axios.post(
-        `${apiBaseUrl}/apikey`,
-        null, // No request body for POST request
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const createResponse = await axios.post(`${apiBaseUrl}/apikey`, null, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (createResponse?.data?.statusCode === true) {
         // If successful, make a GET request to retrieve the new API key
@@ -129,12 +124,15 @@ const Subscription = () => {
   };
 
   useEffect(() => {
+    console.log("API key changed:", apikey);
+  }, [apikey]);
+
+  useEffect(() => {
     getApiUsage();
     getUserInfo();
     getSubscriptionPlan();
   }, []);
 
-  console.log(apikey);
 
   if (loading) {
     return <Spinner />;

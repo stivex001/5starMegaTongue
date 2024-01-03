@@ -6,6 +6,10 @@ import { Spinner } from "./Spinner";
 const ApiAccessKey = ({ apiKey, createNewApiKey, loading, user }) => {
   const userApiKey = user?.data?.user?.api_key;
 
+  console.log(userApiKey);
+
+  console.log(apiKey);
+
   return (
     <section className={` mx-auto w-5/6  md:h-full md:pb-0 border `}>
       <div className="py-7 px-8">
@@ -15,7 +19,7 @@ const ApiAccessKey = ({ apiKey, createNewApiKey, loading, user }) => {
             {userApiKey ? (
               <p className="text-3xl font-semibold italic">{userApiKey}</p>
             ) : (
-              <p>{apiKey}</p>
+              <p>You do not have apiKey kindly create one</p>
             )}
             {apiKey ? (
               <CustomButton
