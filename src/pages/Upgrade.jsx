@@ -21,15 +21,12 @@ const Upgrade = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/getfaq`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`${apiBaseUrl}/getfaq`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data?.message);
       setFaq(response?.data?.message);
       setIsLoading(false);
@@ -71,24 +68,15 @@ const Upgrade = () => {
   return (
     <div className="pt-32 mx-auto w-[70%]">
       <div className="flex items-center gap-6">
-        <PriceCard
-          title={plan[0]?.plan_name}
-          price={plan[0]?.amount}
-          btn="Renew  23-02-2024"
-          desc={plan[0]?.description}
-        />
-        <PriceCard
-          title={plan[2]?.plan_name}
-          price={plan[2]?.amount}
-          btn="Upgrade"
-          desc={plan[2]?.description}
-        />
-        <PriceCard
-          title={plan[1]?.plan_name}
-          price={plan[1]?.amount}
-          btn="Upgrade"
-          desc={plan[1]?.description}
-        />
+        {plan?.map((p) => (
+          <PriceCard
+            key={p?.id}
+            title={p?.plan_name}
+            price={p?.amount}
+            btn="Upgrade"
+            desc={p?.description}
+          />
+        ))}
       </div>
 
       <div className="flex items-center justify-end mt-12 gap-3">
